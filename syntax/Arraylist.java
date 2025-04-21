@@ -1,11 +1,11 @@
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.Map.Entry;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Arraylist {
     
@@ -74,5 +74,37 @@ public class Arraylist {
                     .thenComparing(e -> e.getValue())
         );
         System.out.println(entries);
+
+        //Sorting Array of arrays
+        int[][] arr = {
+            {2, 1, 3},
+            {1, 4, 5},
+            {1, 4, 2},
+            {2, 0, 9}
+        };
+        Arrays.sort(arr, (a, b) -> {
+            int minLen = Math.min(a.length, b.length);
+            for (int i = 0; i < minLen; i++) {
+                if (a[i] != b[i]) 
+                    return Integer.compare(a[i], b[i]);
+            }
+            return Integer.compare(a.length, b.length); // shorter array comes first
+        });
+
+        //Max and Min in List 
+        int[] arr1 = {1, 2, 3, 4, 5};
+        System.out.println(Arrays.stream(arr1).max().orElse(Integer.MIN_VALUE));
+
+
+        //Max and Min
+        List<Map.Entry<String, Integer>> xyt = new ArrayList<>();
+        xyt.add(new AbstractMap.SimpleEntry<>("a", 1));
+        xyt.add(new AbstractMap.SimpleEntry<>("b", -2));
+
+        Map.Entry<String, Integer> min = Collections.min(
+            xyt, Comparator.comparingInt(Map.Entry::getValue)
+        );
+
+        System.out.println(min.getKey() + " : " + min.getValue()); 
     }
 }
